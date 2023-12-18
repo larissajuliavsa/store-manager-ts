@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (_req: Request, res: Response) => {
-  res.send('hello world')
+  res.send('🛍️ Store Manager')
 })
 
 app.use('/products', products)
