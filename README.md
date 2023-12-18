@@ -1,6 +1,6 @@
 # Projeto Store Manager TS
 
-Este é o projeto Store Manager TS, uma aplicação incrível que faz coisas maravilhosas! Para executar este projeto localmente, siga as etapas abaixo.
+Apresento o Store Manager TS, uma aplicação projetada para facilitar a gestão de estoque de produtos com TypeScript, Node, Express e MySQL.
 
 ## Pré-requisitos
 
@@ -16,11 +16,25 @@ Certifique-se de ter o Node.js e o Docker instalados em sua máquina.
 
 `npm install`
 
-## Configuração do Docker
+## Configuração de Enviroment e Docker
+
+### Enviroment
+
+Na raiz do projeto possui o arquivo `.env.exemple`, para a aplicação rodar é necessário trocar os valores de acordo com a sua máquina. Mantendo os valores de `MYSQL_DATABASE` e `PORT`.
+
+1. Exemplo de valores em .env:
+
+```
+MYSQL_HOST=host
+MYSQL_USER=user
+MYSQL_PASSWORD=password
+MYSQL_DATABASE=database
+PORT=port
+```
+
+### Docker
 
 Certifique-se de que o Docker está em execução.
-
-### Inicialização
 
 Após a instalação das dependências e a configuração do Docker, siga estas etapas:
 
