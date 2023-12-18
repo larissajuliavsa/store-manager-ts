@@ -56,3 +56,25 @@ export const createProduct = async (name: string, quantity: number) => {
     throw new Error("Error creating the product")
   }
 }
+
+export const updateProduct = async (
+  id: number,
+  name: string,
+  quantity: number,
+) => {
+  try {
+    const connection = await connectToDatabase()
+    const query =
+      "UPDATE StoreManager.products SET name = ?, quantity = ? WHERE id = ?;"
+    const [result] = await connection.execute(query, [name, quantity, id])
+    const isUpdated = "affectedRows" in result && result.affectedRows > 0
+
+    if (isUpdated) {
+      return { id, name, quantity }
+    }
+
+    throw new Error("Unable to update the product or the product doesn't exist")
+  } catch (error) {
+    throw new Error("Unable to update the product")
+  }
+}

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { services } from "../services"
-import { ProductResponse } from "../types/products.types"
+// import { ProductResponse } from "../types/products.types"
 
 export const getAllProducts = async (_req: Request, res: Response) => {
   const products = await services.products.getAllProducts()
@@ -29,16 +29,29 @@ export const createProduct = async (
 ) => {
   try {
     const { name, quantity } = req.body
-    const result: ProductResponse = await services.products.createProduct(
+    const result = await services.products.createProduct(name, quantity)
+
+    return res.status(201).json(result)
+  } catch (err) {
+    next({ status: 500, message: "Internal Server Error" })
+  }
+}
+
+export const updateProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const { name, quantity } = req.body
+    const parsedId = Number(id)
+    const update = await services.products.updateProduct(
+      parsedId,
       name,
       quantity,
     )
-
-    if ("status" in result && "message" in result) {
-      return res.status(result.status).json({ message: result.message })
-    }
-
-    return res.status(201).json(result)
+    return res.status(200).json(update)
   } catch (err) {
     next(err)
   }

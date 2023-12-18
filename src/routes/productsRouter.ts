@@ -9,5 +9,10 @@ products.use(express.json())
 products.get("/", controllers.products.getAllProducts)
 products.get("/:id", controllers.products.getProductByID)
 products.post("/", createProductMiddleware, controllers.products.createProduct)
+products.put(
+  "/:id",
+  createProductMiddleware,
+  controllers.products.updateProduct,
+)
 
 export default products

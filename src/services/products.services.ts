@@ -1,4 +1,3 @@
-import { errorMessage } from "../utils/helpers"
 import { models } from "../models"
 
 export const getAllProducts = async () => {
@@ -8,7 +7,11 @@ export const getAllProducts = async () => {
 
 export const getProductByID = async (id: number) => {
   const product = await models.products.getProductByID(id)
-  if (!product) return errorMessage(404, "Product not found")
+  // if (!product) return errorMessage(404, "Product not found")
+  if (!product) {
+    const error = { status: 404, message: "Product not found" }
+    throw error
+  }
   return product
 }
 
@@ -16,9 +19,25 @@ export const createProduct = async (name: string, quantity: number) => {
   const existingProduct = await models.products.findProductName(name)
 
   if (existingProduct) {
-    return errorMessage(409, "Product already exists")
+    const error = { status: 409, message: "Product already exists" }
+    throw error
   }
 
-  const createProduct = await models.products.createProduct(name, quantity)
-  return createProduct
+  const product = await models.products.createProduct(name, quantity)
+  return product
+}
+
+export const updateProduct = async (
+  id: number,
+  name: string,
+  quantity: number,
+) => {
+  const existingProduct = await models.products.getProductByID(id)
+  if (!existingProduct) {
+    const error = { status: 404, message: "Product not found" }
+    throw error
+  }
+
+  const update = await models.products.updateProduct(id, name, quantity)
+  return update
 }
