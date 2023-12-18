@@ -1,19 +1,24 @@
+import { errorMessage } from "../utils/helpers"
 import { models } from "../models"
-
-const errorMessage = (status: number, message: string) => ({
-  status,
-  message,
-})
 
 export const getAllProducts = async () => {
   const products = await models.products.getAllProducts()
   return products
 }
 
-export const getProductId = async (id: number) => {
-  const productId = await models.products.getProductId(id)
+export const getProductByID = async (id: number) => {
+  const product = await models.products.getProductByID(id)
+  if (!product) return errorMessage(404, "Product not found")
+  return product
+}
 
-  if (!productId) throw errorMessage(404, "Product not found")
+export const createProduct = async (name: string, quantity: number) => {
+  const existingProduct = await models.products.findProductName(name)
 
-  return productId
+  if (existingProduct) {
+    return errorMessage(409, "Product already exists")
+  }
+
+  const createProduct = await models.products.createProduct(name, quantity)
+  return createProduct
 }
