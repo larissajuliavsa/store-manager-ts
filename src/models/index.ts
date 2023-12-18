@@ -1,4 +1,4 @@
-import * as productsModel from "./products.model"
+import * as productsModel from "./products.models"
 
 export const models = {
   products: productsModel,
