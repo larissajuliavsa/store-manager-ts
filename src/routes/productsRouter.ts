@@ -6,5 +6,6 @@ const products = express.Router()
 products.use(express.json())
 
 products.get("/", controllers.products.getAllProducts)
+products.get("/:id", controllers.products.getProductId)
 
 export default products
