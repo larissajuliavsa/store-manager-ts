@@ -2,11 +2,11 @@
   "name": "store-manager-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "start:dev": "nodemon --watch 'src/' --exec 'ts-node src/index.ts' -e ts",
+    "start": "node dist/server.js",
+    "start:dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
     "husky:prepare": "husky install",
     "test": "jest --passWithNoTests",
     "test:coverage": "jest --coverage"
