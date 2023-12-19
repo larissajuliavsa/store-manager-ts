@@ -1,6 +1,7 @@
 import express from 'express'
 import { Request, Response, NextFunction } from 'express'
-import products from './routes/productsRouter'
+import products from './routes/products.router'
+import sales from './routes/sales.router'
 import { errorMessage } from './utils/helpers'
 
 const app = express()
@@ -11,6 +12,7 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.use('/products', products)
+app.use('/sales', sales)
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   errorMessage(err, req, res, next)
