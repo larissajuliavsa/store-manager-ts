@@ -9,5 +9,6 @@ sales.use(express.json())
 sales.get('/', controllers.sales.getAllSales)
 sales.get('/:id', controllers.sales.getSaleByID)
 sales.post('/', saleMiddleware, controllers.sales.createSales)
+sales.put('/:id', saleMiddleware, controllers.sales.updateSales)
 
 export default sales

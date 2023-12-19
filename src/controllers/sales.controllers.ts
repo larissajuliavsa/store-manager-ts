@@ -34,3 +34,19 @@ export const createSales = async (
     next(err)
   }
 }
+
+export const updateSales = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const parsedId = Number(id)
+    const product = req.body
+    const update = await services.sales.updateSale(parsedId, product)
+    return res.status(200).json(update)
+  } catch (err) {
+    next(err)
+  }
+}

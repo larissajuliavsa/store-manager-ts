@@ -1,15 +1,20 @@
 import { Request, Response, NextFunction } from 'express'
-import { Product } from 'types/products.types'
 import { z } from 'zod'
 
-const schemaCreate = z.object({
+const schemaUpdate = z.object({
   productId: z.number().int(),
   quantity: z.number().int(),
 })
 
-const validateProduct = ({ productId, quantity }: Product) => {
+const validateUpdate = ({
+  productId,
+  quantity,
+}: {
+  productId: number
+  quantity: number
+}) => {
   try {
-    schemaCreate.parse({ productId, quantity })
+    schemaUpdate.parse({ productId, quantity })
   } catch (error: any) {
     throw new Error(error.errors[0] || 'Invalid data provided')
   }
@@ -28,9 +33,11 @@ export const saleMiddleware = (
 ) => {
   const { body } = req
   try {
-    body.forEach(({ productId, quantity }: Product) => {
-      validateProduct({ productId, quantity })
-    })
+    body.forEach(
+      ({ productId, quantity }: { productId: number; quantity: number }) => {
+        validateUpdate({ productId, quantity })
+      },
+    )
 
     next()
   } catch (error: any) {

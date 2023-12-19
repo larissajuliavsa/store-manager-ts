@@ -15,10 +15,14 @@ export const getAllSales = async () => {
 export const getSaleByID = async (id: number) => {
   try {
     const connection = await connectToDatabase()
-    const query = `SELECT sale.date, salePrd.product_id AS 'productId', salePrd.quantity FROM StoreManager.sales_products AS salePrd JOIN StoreManager.sales AS sale ON salePrd.sale_id = sale.id WHERE salePrd.sale_id = ? ORDER BY 'productId'`
+    const query = `SELECT sale.date, salePrd.product_id AS 'productId', salePrd.quantity FROM StoreManager.sales_products AS salePrd JOIN StoreManager.sales AS sale ON salePrd.sale_id = sale.id WHERE salePrd.sale_id = ? ORDER BY salePrd.product_id;`
     const [results] = await connection.execute(query, [id])
     const rows = results as RowDataPacket[]
-    const sale = rows[0]
+    const sale = rows.map((row) => ({
+      date: row.date,
+      productId: row.productId,
+      quantity: row.quantity,
+    }))
     return sale
   } catch (error: any) {
     throw new Error(`Error fetching sale by ID: ${error.message}`)
@@ -54,5 +58,25 @@ export const createSales = async (
     return sale
   } catch (error: any) {
     throw new Error(`Error creating sale: ${error.message}`)
+  }
+}
+
+export const updateSaleProduct = async (
+  saleId: number,
+  productId: number,
+  quantity: number,
+) => {
+  try {
+    const connection = await connectToDatabase()
+    const query =
+      'UPDATE sales_products SET quantity = ? WHERE sale_id = ? AND product_id = ?'
+    const [sale] = await connection.execute(query, [
+      quantity,
+      saleId,
+      productId,
+    ])
+    return sale
+  } catch (error: any) {
+    throw new Error(`Error updating sale product: ${error.message}`)
   }
 }
