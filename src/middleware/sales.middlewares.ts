@@ -7,30 +7,6 @@ const schemaCreate = z.object({
   quantity: z.number().int(),
 })
 
-// export const saleMiddleware = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ) => {
-//   const { body } = req
-
-//   try {
-//     body.forEach(({ productId, quantity }: Product) => {
-//       try {
-//         schemaCreate.parse({ productId, quantity })
-//       } catch (error: any) {
-//         throw new Error(error.errors[0] || 'Invalid data provided')
-//       }
-//     })
-
-//     next()
-//   } catch (error: any) {
-//     const errorMessage = error.errors?.[0]?.message || 'Invalid data provided'
-//     const errorType = error.errors && error.errors.length > 0 ? 422 : 400
-//     res.status(errorType).json({ message: errorMessage })
-//   }
-// }
-
 const validateProduct = ({ productId, quantity }: Product) => {
   try {
     schemaCreate.parse({ productId, quantity })
