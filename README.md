@@ -1,6 +1,16 @@
 # Projeto Store Manager TS
 
-Apresento o Store Manager TS, uma aplicação projetada para facilitar a gestão de estoque de produtos com TypeScript, Node, Express e MySQL.
+Apresento o Store Manager TS, uma aplicação para facilitar a gestão de estoque de produtos com TypeScript, Node, Express e MySQL.
+
+## Progresso
+
+### Entidades do projeto
+
+<ul style="list-style: none;">
+  <li>✅ Products</li>
+  <li>⬜️ Sale</li>
+  <li>⬜️ User Admin</li>
+</ul>
 
 ## Pré-requisitos
 
